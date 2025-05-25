@@ -1,0 +1,143 @@
+### Testes de API do Controle de Estoque
+
+###############################################
+### TIPO DE PRODUTO
+###############################################
+
+### Listar todos os tipos de produto (paginado)
+GET http://localhost:8080/api/tipo-produto?page=0&size=10
+
+### Listar tipos de produto filtrados por descrição (paginado)
+GET http://localhost:8080/api/tipo-produto?descricao=Móveis&page=0&size=10
+
+### Buscar tipo de produto por ID
+GET http://localhost:8080/api/tipo-produto/9
+
+### Cadastrar novo tipo de produto
+POST http://localhost:8080/api/tipo-produto/cadastrar
+Content-Type: application/json
+
+{
+  "descricao": "Móveis e Eletrodomésticos"
+}
+
+### Editar tipo de produto
+PUT http://localhost:8080/api/tipo-produto/editar/1
+Content-Type: application/json
+
+{
+  "descricao": "Eletrônicos e Acessórios"
+}
+
+### Excluir tipo de produto
+DELETE http://localhost:8080/api/tipo-produto/remover/9
+
+###############################################
+### TIPO DE MOVIMENTAÇÃO
+###############################################
+
+### Listar todos os tipos de movimentação (paginado)
+GET http://localhost:8080/api/tipo-movimentacao/listar?page=0&size=10
+
+### Listar tipos de movimentação filtrados (paginado)
+GET http://localhost:8080/api/tipo-movimentacao/listar?descricao=Venda&natureza=SAIDA&page=0&size=10
+
+### Buscar tipo de movimentação por ID
+GET http://localhost:8080/api/tipo-movimentacao/1
+
+### Cadastrar novo tipo de movimentação - ENTRADA
+POST http://localhost:8080/api/tipo-movimentacao/cadastrar
+Content-Type: application/json
+
+{
+  "descricao": "Compra de Fornecedor",
+  "naturezaMovimentacao": "ENTRADA"
+}
+
+### Cadastrar novo tipo de movimentação - SAIDA
+POST http://localhost:8080/api/tipo-movimentacao/cadastrar
+Content-Type: application/json
+
+{
+  "descricao": "Venda para Cliente",
+  "naturezaMovimentacao": "SAIDA"
+}
+
+### Editar tipo de movimentação
+PUT http://localhost:8080/api/tipo-movimentacao/editar/5
+Content-Type: application/json
+
+{
+  "descricao": "Compra de Mercadoria",
+  "naturezaMovimentacao": "ENTRADA"
+}
+
+### Excluir tipo de movimentação
+DELETE http://localhost:8080/api/tipo-movimentacao/remover/4
+
+###############################################
+### PRODUTO
+###############################################
+
+### Listar todos os produtos (paginado)
+GET http://localhost:8080/api/produto/listar?page=0&size=10
+
+### Listar produtos filtrados por descrição (paginado)
+GET http://localhost:8080/api/produto/listar?descricao=Notebook&page=0&size=10
+
+### Buscar produto por ID
+GET http://localhost:8080/api/produto/1
+
+### Cadastrar novo produto (com entrada em estoque)
+POST http://localhost:8080/api/produto/cadastrar
+Content-Type: application/json
+
+{
+  "produto": {
+    "codigo": "PROD001",
+    "descricao": "Notebook Dell Inspiron",
+    "valorFornecedor": 2500.00,
+    "valorVenda": 3200.00,
+    "quantidadeTotal": 1,
+    "tipo": {
+      "id": 1
+    }
+  },
+  "tipoMovimentacao": {
+    "id": 1
+  }
+}
+
+### Cadastrar novo produto (forma alternativa usando tipoProdutoId)
+POST http://localhost:8080/api/produto/cadastrar
+Content-Type: application/json
+
+{
+  "produto": {
+    "codigo": "PROD002",
+    "descricao": "Smartphone Samsung Galaxy",
+    "valorFornecedor": 1200.00,
+    "valorVenda": 1800.00,
+    "tipoProdutoId": 1
+  },
+  "tipoMovimentacao": {
+    "id": 2
+  }
+}
+
+### Editar produto
+PUT http://localhost:8080/api/produto/editar/1
+Content-Type: application/json
+
+{
+  "codigo": "PROD001",
+  "descricao": "Notebook Dell Inspiron 15",
+  "valorFornecedor": 2600.00,
+  "valorVenda": 3400.00,
+  "tipo": {
+    "id": 1
+  }
+}
+
+### Remover produto
+DELETE http://localhost:8080/api/produto/remover/1

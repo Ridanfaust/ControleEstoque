@@ -16,9 +16,11 @@ public interface TipoMovimentacaoRepository extends JpaRepository<TipoMovimentac
             + "WHERE tm.ativo = TRUE "
             + "AND (:descricao IS NULL OR LOWER(tm.descricao) LIKE %:descricao%) "
             + "AND (:natureza IS NULL OR LOWER(tm.naturezaMovimentacao) = :natureza) "
+            + "AND (:venda IS NULL OR tm.venda = :venda) "
             + "ORDER BY tm.descricao")
     Page<TipoMovimentacao> findAllPaginadoByFiltros(@Param("descricao") String descricao,
                                                     @Param("natureza") String natureza,
+                                                    @Param("venda") Boolean venda,
                                                     Pageable pageable);
 
     @Query("SELECT COUNT(tm) > 0 "

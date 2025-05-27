@@ -32,8 +32,8 @@ public class ProdutoService {
     private final ModelMapper modelMapper;
     private final TipoMovimentacaoService tipoMovimentacaoService;
 
-    public Page<ProdutoDTO> listar(String descricao, Pageable pageable) {
-        return produtoRepository.findAllPaginadoByFiltros(lower(descricao), pageable)
+    public Page<ProdutoDTO> listar(String codigo, String descricao, String tipo, Pageable pageable) {
+        return produtoRepository.findAllPaginadoByFiltros(lower(codigo), lower(descricao), lower(tipo), pageable)
                 .map(produto -> modelMapper.map(produto, ProdutoDTO.class));
     }
 
@@ -89,6 +89,8 @@ public class ProdutoService {
     @Transactional
     public ProdutoDTO atualizarEstoque(Movimentacao movimentacao) {
         Long id = movimentacao.getProduto().getId();
+
+        movimentacao.setTipo(tipoMovimentacaoService.buscarPorId(movimentacao.getTipo().getId()));
 
         if (movimentacao.getTipo().isEntrada()) {
             return adicionarEstoque(id, movimentacao.getQuantidade());

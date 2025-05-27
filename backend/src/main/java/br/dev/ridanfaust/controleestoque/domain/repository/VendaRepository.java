@@ -15,10 +15,10 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 
     @Query("SELECT v "
             + "FROM Venda v "
+            + "JOIN FETCH v.situacao "
             + "WHERE v.ativo = TRUE "
-            + "AND (:descricao IS NULL OR LOWER(v.descricao) LIKE %:descricao%) "
-            + "ORDER BY v.descricao")
-    Page<Venda> findAllPaginadoByFiltros(@Param("descricao") String descricao, Pageable pageable);
+            + "ORDER BY v.dataCadastro DESC")
+    Page<Venda> findAllPaginadoByFiltros(Pageable pageable);
 
     @Query("SELECT v "
             + "FROM Venda v "

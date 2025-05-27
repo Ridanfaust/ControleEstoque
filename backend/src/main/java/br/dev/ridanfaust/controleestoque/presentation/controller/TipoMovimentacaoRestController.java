@@ -27,8 +27,9 @@ public class TipoMovimentacaoRestController extends AbstractRestController<TipoM
     @GetMapping("/listar")
     public ResponseEntity<PaginatedResponse<TipoMovimentacaoDTO>> listar(@RequestParam(required = false) String descricao,
                                                                          @RequestParam(required = false) String natureza,
+                                                                         @RequestParam(required = false) Boolean venda,
                                                                          Pageable pageable) {
-        var page = tipoMovimentacaoService.listar(descricao, natureza, pageable);
+        var page = tipoMovimentacaoService.listar(descricao, natureza, venda, pageable);
         return responseListaPaginada(PaginatedResponse.from(page));
     }
 

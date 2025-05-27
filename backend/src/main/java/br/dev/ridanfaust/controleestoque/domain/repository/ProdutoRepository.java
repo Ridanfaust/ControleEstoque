@@ -17,9 +17,14 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     @Query("SELECT p "
             + "FROM Produto p "
             + "WHERE p.ativo = TRUE "
+            + "AND (:codigo IS NULL OR LOWER(p.codigo) LIKE %:codigo%) "
             + "AND (:descricao IS NULL OR LOWER(p.descricao) LIKE %:descricao%) "
+            + "AND (:tipo IS NULL OR LOWER(p.tipo.descricao) LIKE %:tipo%) "
             + "ORDER BY p.descricao")
-    Page<Produto> findAllPaginadoByFiltros(@Param("descricao") String descricao, Pageable pageable);
+    Page<Produto> findAllPaginadoByFiltros(@Param("codigo") String codigo,
+                                           @Param("descricao") String descricao,
+                                           @Param("tipo") String tipo,
+                                           Pageable pageable);
 
     @Query("SELECT COUNT(p) > 0 "
             + "FROM Produto p "

@@ -24,7 +24,7 @@ public class TipoProdutoRestController extends AbstractRestController<TipoProdut
 
     private final TipoProdutoService tipoProdutoService;
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<PaginatedResponse<TipoProdutoDTO>> listar(@RequestParam(required = false) String descricao, Pageable pageable) {
         var page = tipoProdutoService.listar(descricao, pageable);
         return responseListaPaginada(PaginatedResponse.from(page));

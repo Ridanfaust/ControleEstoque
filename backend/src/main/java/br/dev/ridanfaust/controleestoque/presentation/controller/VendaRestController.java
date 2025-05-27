@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -29,9 +28,8 @@ public class VendaRestController extends AbstractRestController<VendaDTO> {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<PaginatedResponse<VendaDTO>> listar(@RequestParam(required = false) String descricao,
-                                                              Pageable pageable) {
-        var page = vendaService.listar(descricao, pageable);
+    public ResponseEntity<PaginatedResponse<VendaDTO>> listar(Pageable pageable) {
+        var page = vendaService.listar(pageable);
         return responseListaPaginada(PaginatedResponse.from(page));
     }
 

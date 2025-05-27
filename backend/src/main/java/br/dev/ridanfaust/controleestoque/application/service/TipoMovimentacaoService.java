@@ -1,5 +1,6 @@
 package br.dev.ridanfaust.controleestoque.application.service;
 
+import br.dev.ridanfaust.controleestoque.domain.enums.NaturezaMovimentacaoEnum;
 import br.dev.ridanfaust.controleestoque.domain.exception.RecursoNaoEncontradoException;
 import br.dev.ridanfaust.controleestoque.domain.exception.RegraNegocioException;
 import br.dev.ridanfaust.controleestoque.domain.model.TipoMovimentacao;
@@ -25,8 +26,8 @@ public class TipoMovimentacaoService {
     private final TipoMovimentacaoRepository tipoMovimentacaoRepository;
     private final ModelMapper modelMapper;
 
-    public Page<TipoMovimentacaoDTO> listar(String descricao, String natureza, Pageable pageable) {
-        return tipoMovimentacaoRepository.findAllPaginadoByFiltros(lower(descricao), lower(natureza), pageable)
+    public Page<TipoMovimentacaoDTO> listar(String descricao, String natureza, Boolean venda, Pageable pageable) {
+        return tipoMovimentacaoRepository.findAllPaginadoByFiltros(lower(descricao), lower(natureza), venda, pageable)
                 .map(tipoMovimentacao -> modelMapper.map(tipoMovimentacao, TipoMovimentacaoDTO.class));
     }
 
@@ -62,7 +63,7 @@ public class TipoMovimentacaoService {
 
         TipoMovimentacao tipoMovimentacao = buscarPorId(id);
         tipoMovimentacao.setDescricao(tipoMovimentacaoDTO.getDescricao());
-        tipoMovimentacao.setNaturezaMovimentacao(tipoMovimentacaoDTO.getNaturezaMovimentacao());
+        tipoMovimentacao.setNaturezaMovimentacao(NaturezaMovimentacaoEnum.valueOf(tipoMovimentacaoDTO.getNaturezaMovimentacao()));
 
         return modelMapper.map(tipoMovimentacaoRepository.save(tipoMovimentacao), TipoMovimentacaoDTO.class);
     }

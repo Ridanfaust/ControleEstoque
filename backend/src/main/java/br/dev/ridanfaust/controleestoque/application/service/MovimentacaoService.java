@@ -10,8 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import static br.dev.ridanfaust.controleestoque.shared.util.StringFilterUtil.lower;
 import static br.dev.ridanfaust.controleestoque.shared.util.ValidatorUtil.isNotEmpty;
 
 @Service
@@ -21,8 +23,14 @@ public class MovimentacaoService {
     private final MovimentacaoRepository movimentacaoRepository;
     private final ModelMapper modelMapper;
 
-    public Page<MovimentacaoDTO> listar(Long produtoId, Long tipoMovimentacaoId, Pageable pageable) {
-        return movimentacaoRepository.findAllPaginadoByFiltros(produtoId, tipoMovimentacaoId, pageable)
+    public Page<MovimentacaoDTO> listar(String produto, String tipoMovimentacao, String natureza, LocalDate dataInicio, LocalDate dataFim, Pageable pageable) {
+        if (dataInicio == null) {
+            dataInicio = LocalDate.ofEpochDay(0);
+        }
+        if (dataFim == null) {
+            dataFim = LocalDate.now();
+        }
+        return movimentacaoRepository.findAllPaginadoByFiltros(produto, tipoMovimentacao, lower(natureza), dataInicio, dataFim, pageable)
                 .map(movimentacao -> modelMapper.map(movimentacao, MovimentacaoDTO.class));
     }
 
@@ -32,9 +40,10 @@ public class MovimentacaoService {
     }
 
     @Transactional
-    public void salvarMovimentacoes(List<Movimentacao> movimentacoesParaSalvar) {
+    public List<Movimentacao> salvarMovimentacoes(List<Movimentacao> movimentacoesParaSalvar) {
         if (isNotEmpty(movimentacoesParaSalvar)) {
-            movimentacaoRepository.saveAll(movimentacoesParaSalvar);
+            return movimentacaoRepository.saveAll(movimentacoesParaSalvar);
         }
+        throw new IllegalArgumentException("A lista de movimentações não pode ser vazia.");
     }
 }

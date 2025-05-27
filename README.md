@@ -50,7 +50,7 @@ raiz/
 
 1. Clone o repositório:
    ```bash
-   git clone [url-do-repositorio]
+   git clone https://github.com/Ridanfaust/ControleEstoque.git
    cd [diretorio-do-projeto]
    ```
 
@@ -94,6 +94,8 @@ Para desenvolvimento local fora do Docker, configure seu ambiente com:
 - PostgreSQL 16
 
 ## Notas
+
+O projeto foi feito em um monorepo, pois ter o frontend e o backend no mesmo repositório facilita a navegação, manutenção e entendimento do sistema como um todo. Além disso, o docker-compose.yml consegue subir todo o sistema com apenas um comando.
 
 Este projeto implementa os princípios de Clean Architecture (Arquitetura Limpa) no backend, utilizando Java e Spring Boot - tecnologias nas quais possuo experiência após anos de prática profissional.
 

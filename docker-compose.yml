@@ -28,5 +28,32 @@ services:
       postgres:
         condition: service_healthy
 
+  backend:
+    container_name: estoque-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://estoque-db:5432/postgres
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    image: node:22
+    container_name: estoque-frontend
+    working_dir: /frontend-vue
+    volumes:
+      - ./frontend-vue:/frontend-vue
+    ports:
+      - "5173:5173"
+    command: [ "sh", "-c", "npm install && npm run dev" ]
+    depends_on:
+      - backend
+
 volumes:
   pgdata:

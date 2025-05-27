@@ -5,6 +5,7 @@ import br.dev.ridanfaust.controleestoque.domain.exception.RegraNegocioException;
 import br.dev.ridanfaust.controleestoque.domain.model.Movimentacao;
 import br.dev.ridanfaust.controleestoque.domain.model.Produto;
 import br.dev.ridanfaust.controleestoque.domain.model.TipoMovimentacao;
+import br.dev.ridanfaust.controleestoque.domain.model.TipoProduto;
 import br.dev.ridanfaust.controleestoque.domain.repository.ProdutoRepository;
 import br.dev.ridanfaust.controleestoque.presentation.dto.ProdutoDTO;
 import br.dev.ridanfaust.controleestoque.presentation.request.NovoProdutoRequest;
@@ -82,6 +83,9 @@ public class ProdutoService {
 
         produto.setCodigo(produtoDTO.getCodigo());
         produto.setDescricao(produtoDTO.getDescricao());
+        produto.setValorFornecedor(produtoDTO.getValorFornecedor());
+        produto.setValorVenda(produtoDTO.getValorVenda());
+        produto.setTipo(modelMapper.map(produtoDTO.getTipo(), TipoProduto.class));
 
         return modelMapper.map(produtoRepository.save(produto), ProdutoDTO.class);
     }

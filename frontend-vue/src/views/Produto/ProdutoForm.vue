@@ -182,28 +182,36 @@ const handleInput = (field) => {
 
 const salvarProduto = async () => {
   try {
-    const valorFornecedorNumerico = parseCurrency(produtoFormData.valorFornecedor);
-    const valorVendaNumerico = parseCurrency(produtoFormData.valorVenda);
+    const valorFornecedor = parseCurrency(produtoFormData.valorFornecedor);
+    const valorVenda = parseCurrency(produtoFormData.valorVenda);
 
-    const novoProduto = {
-      produto: {
-        codigo: produtoFormData.codigo,
-        descricao: produtoFormData.descricao,
-        valorFornecedor: valorFornecedorNumerico,
-        valorVenda: valorVendaNumerico,
-        quantidadeTotal: produtoFormData.quantidadeTotal,
-        tipo: {id: produtoFormData.tipoProduto},
-      },
-      tipoMovimentacao: {id: produtoFormData.tipoMovimentacao},
+    const produto = {
+      codigo: produtoFormData.codigo,
+      descricao: produtoFormData.descricao,
+      valorFornecedor,
+      valorVenda,
+      quantidadeTotal: produtoFormData.quantidadeTotal,
+      tipo: {id: produtoFormData.tipoProduto},
     };
 
-    const response = await service.salvar(novoProduto)
-    await router.push('/produto').then()
-    showSuccess(response.data.message || 'Produto salvo com sucesso!')
+    if (isEdicao.value) {
+      produto.id = produtoFormData.id;
+      const response = await service.atualizar(produto);
+      await router.push('/produto');
+      showSuccess(response.data.message || 'Produto salvo com sucesso!');
+    } else {
+      const novoProduto = {
+        produto,
+        tipoMovimentacao: {id: produtoFormData.tipoMovimentacao},
+      };
+      const response = await service.salvar(novoProduto);
+      await router.push('/produto');
+      showSuccess(response.data.message || 'Produto salvo com sucesso!');
+    }
   } catch (error) {
-    showError(errorHandler.msgErro(error))
+    showError(errorHandler.msgErro(error));
   }
-}
+};
 
 const cancelar = () => {
   router.push('/produto')

@@ -56,7 +56,7 @@
             <div class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
               Total de Lucro
             </div>
-            <div class="text-xl font-bold"
+            <div class="text-xl font-bold text-gray-800 dark:text-white"
                  :class="{'text-emerald-600 dark:text-emerald-400': totalLucro > 0, 'text-red-600 dark:text-red-400': totalLucro < 0}">
               {{ formatarMoeda(totalLucro) }}
             </div>
@@ -229,7 +229,7 @@
 </template>
 
 <script setup>
-import {onMounted, reactive, ref, computed, watch} from 'vue'
+import {onMounted, reactive, ref, watch} from 'vue'
 import PageBreadcrumb from "@/components/common/PageBreadcrumb.vue"
 import AppLayout from "@/components/layout/AppLayout.vue"
 import ComponentCard from "@/components/common/ComponentCard.vue"

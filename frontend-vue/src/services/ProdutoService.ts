@@ -9,6 +9,9 @@ export default {
   async salvar(produto: NovoProduto): Promise<AxiosResponse<Produto>> {
     return api.post(`${API_BASE_URL}/cadastrar`, produto)
   },
+  async atualizar(produto: Produto): Promise<AxiosResponse<Produto>> {
+    return api.put(`${API_BASE_URL}/editar/${produto.id}`, produto)
+  },
   async listar(codigo: string, descricao: string, tipo: string, pagina: number, tamanho: number): Promise<AxiosResponse<Produto[]>> {
     const params = new URLSearchParams();
     if (codigo) params.append("codigo", codigo);

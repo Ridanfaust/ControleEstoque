@@ -43,7 +43,7 @@
             <div class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
               Total de Lucro
             </div>
-            <div class="text-xl font-bold"
+            <div class="text-xl font-bold text-gray-800 dark:text-white"
                  :class="{'text-emerald-600 dark:text-emerald-400': totalProfit > 0, 'text-red-600 dark:text-red-400': totalProfit < 0}">
               {{ formatCurrency(totalProfit) }}
             </div>
@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
+import {onMounted, ref} from 'vue'
 import VendaService from '@/services/VendaService'
 import {formatCurrency} from '@/utils/CurrencyUtil.js'
 

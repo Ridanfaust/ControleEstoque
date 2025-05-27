@@ -14,11 +14,11 @@ public class VendaProdutoDTO {
     @NotNull(message = "O produto é obrigatório")
     private ProdutoDTO produto;
 
-    @NotNull(message = "A venda é obrigatória")
-    private VendaDTO venda;
-
     @NotNull(message = "O valor do produto na venda é obrigatório")
     private BigDecimal valorVenda;
+
+    @NotNull(message = "A quantidade do produto na venda é obrigatória")
+    private Integer quantidade;
 
     private boolean ativo;
 

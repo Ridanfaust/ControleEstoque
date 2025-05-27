@@ -33,7 +33,7 @@ public class VendaProduto extends Persistable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Venda venda;
 
-    private BigDecimal valorProdutoVenda;
+    private BigDecimal valorVenda;
 
     private Integer quantidade;
 

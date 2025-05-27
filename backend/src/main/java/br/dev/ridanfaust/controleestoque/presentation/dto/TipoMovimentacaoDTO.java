@@ -13,8 +13,10 @@ public class TipoMovimentacaoDTO {
     @NotBlank(message = "A descrição é obrigatória")
     private String descricao;
 
+    private boolean venda;
+
     @NotNull(message = "A natureza da movimentação é obrigatória")
-    private NaturezaMovimentacaoEnum naturezaMovimentacao;
+    private String naturezaMovimentacao;
 
     private boolean ativo;
 
@@ -23,11 +25,11 @@ public class TipoMovimentacaoDTO {
     private String dataAlteracao;
 
     public boolean isEntrada() {
-        return NaturezaMovimentacaoEnum.ENTRADA.equals(naturezaMovimentacao);
+        return NaturezaMovimentacaoEnum.ENTRADA.getDescricao().equals(naturezaMovimentacao);
     }
 
     public boolean isSaida() {
-        return NaturezaMovimentacaoEnum.SAIDA.equals(naturezaMovimentacao);
+        return NaturezaMovimentacaoEnum.SAIDA.getDescricao().equals(naturezaMovimentacao);
     }
 
 }

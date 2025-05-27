@@ -28,6 +28,8 @@ public class TipoMovimentacao extends Persistable {
 
     private String descricao;
 
+    private boolean venda;
+
     @Enumerated(value = EnumType.STRING)
     private NaturezaMovimentacaoEnum naturezaMovimentacao;
 

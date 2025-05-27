@@ -30,8 +30,6 @@ public class Venda extends Persistable {
     @SequenceGenerator(name = "venda_seq_generator", sequenceName = "venda_seq", allocationSize = 1, schema = "estoque")
     private Long id;
 
-    private String descricao;
-
     private BigDecimal valorTotal;
 
     @ManyToOne

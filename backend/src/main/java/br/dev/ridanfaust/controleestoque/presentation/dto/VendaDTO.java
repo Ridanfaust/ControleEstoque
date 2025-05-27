@@ -13,13 +13,13 @@ public class VendaDTO {
 
     private Long id;
 
-    private String descricao;
-
     @NotNull(message = "É necessário informar o valor total da venda")
     private BigDecimal valorTotal;
 
     @NotEmpty(message = "É necessário selecionar pelo menos 1 item")
     private List<VendaProdutoDTO> produtos;
+
+    private SituacaoVendaDTO situacao;
 
     private boolean ativo;
 

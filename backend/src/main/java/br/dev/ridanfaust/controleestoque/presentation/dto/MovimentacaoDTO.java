@@ -1,6 +1,5 @@
 package br.dev.ridanfaust.controleestoque.presentation.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,7 @@ public class MovimentacaoDTO {
     @NotNull(message = "O tipo de movimentação é obrigatório")
     private TipoMovimentacaoDTO tipo;
 
-    @NotEmpty(message = "A quantidade é obrigatória")
+    @NotNull(message = "A quantidade é obrigatória")
     private Integer quantidade;
 
     private boolean ativo;
